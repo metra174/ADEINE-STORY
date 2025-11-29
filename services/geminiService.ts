@@ -1,17 +1,18 @@
 import { GoogleGenAI } from "@google/genai";
 
-// Manually declare process to avoid TypeScript errors
+// @ts-ignore
 declare const process: any;
 
-// Initialize Gemini
-// We use a safe access pattern for the API key
-const apiKey = (typeof process !== 'undefined' && process.env && process.env.API_KEY) || ''; 
+// Acessamos a chave diretamente. 
+// O Vite substituirá 'process.env.API_KEY' pelo valor real da chave durante o 'npm run build',
+// graças à configuração que fizemos no vite.config.ts.
+const apiKey = process.env.API_KEY || '';
 
 const ai = new GoogleGenAI({ apiKey });
 
 export const sendFashionQuery = async (userMessage: string): Promise<string> => {
   if (!apiKey) {
-    return "Desculpe, o serviço de assistente virtual não está configurado no momento (Chave API ausente).";
+    return "Desculpe, a assistente virtual está offline no momento (Configuração de API pendente na Vercel).";
   }
 
   try {

@@ -1,16 +1,10 @@
 import { GoogleGenAI } from "@google/genai";
 
-// Fix for TypeScript build error: "Cannot find name 'process'"
-declare const process: {
-  env: {
-    API_KEY?: string;
-  }
-};
-
 // Initialize Gemini
-// Note: In a real environment, use an env variable. 
-// For this static generation, if KEY is missing, we'll handle gracefully in the UI.
-const apiKey = process.env.API_KEY || ''; 
+// We use a safe access pattern for the API key to avoid TS errors during build
+// @ts-ignore
+const apiKey = (typeof process !== 'undefined' && process.env && process.env.API_KEY) || ''; 
+
 const ai = new GoogleGenAI({ apiKey });
 
 export const sendFashionQuery = async (userMessage: string): Promise<string> => {

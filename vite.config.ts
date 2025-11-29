@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// Fix for TypeScript error TS2580: Cannot find name 'process'
+// Declaration to satisfy linter if opened in editor, 
+// though tsconfig exclude handles the build.
 declare const process: any;
 
 // https://vitejs.dev/config/
@@ -11,8 +12,6 @@ export default defineConfig({
     outDir: 'dist',
   },
   define: {
-    // This allows the code to access process.env.API_KEY without crashing in the browser
-    // Vercel will inject the value at build time if it is configured in project settings
     'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
     'process.env': {}
   }

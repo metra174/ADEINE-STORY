@@ -1,8 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// Declaration to satisfy linter if opened in editor, 
-// though tsconfig exclude handles the build.
+// Manually declare process to avoid TS2580 error without @types/node
 declare const process: any;
 
 // https://vitejs.dev/config/

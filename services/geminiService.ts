@@ -1,8 +1,10 @@
 import { GoogleGenAI } from "@google/genai";
 
+// Manually declare process to avoid TypeScript errors
+declare const process: any;
+
 // Initialize Gemini
-// We use a safe access pattern for the API key to avoid TS errors during build
-// @ts-ignore
+// We use a safe access pattern for the API key
 const apiKey = (typeof process !== 'undefined' && process.env && process.env.API_KEY) || ''; 
 
 const ai = new GoogleGenAI({ apiKey });

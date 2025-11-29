@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
+// Fix for TypeScript error TS2580: Cannot find name 'process'
+declare const process: any;
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
